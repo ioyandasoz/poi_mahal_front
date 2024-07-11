@@ -1,6 +1,11 @@
 <template>
   <button :disabled="props.disabled" @mouseover="fill = 'var(--primary-color)'" @mouseout="fill = 'var(--white-color)'" class="button" :class="classes">
-    <slot></slot>
+    <div class="icon_container">
+      <div class="icon">
+        <slot class="icon" name="icon"></slot>
+      </div>
+      <slot></slot>
+    </div>
   </button>
 </template>
 
@@ -29,6 +34,17 @@ const classes = computed(() => ({
 </script>
 
 <style lang="scss" scoped>
+.icon {
+  margin-right: 6px;
+  width: 22px;
+  height: 22px;
+
+  &_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .button {
   border-radius: 12px;
   line-height: 20px;

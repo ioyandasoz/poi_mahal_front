@@ -1,3 +1,5 @@
 export * from './clear'
 export * from './arrow'
 export * from './check'
+export * from './back-arrow'
+export * from './add-location'

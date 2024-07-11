@@ -1,6 +1,26 @@
 * {
   font-family: 'Inter', sans-serif;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+*:before,
+*:after {
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+ul,
+li,
+ol {
+    list-style-type: none;
+}
 .container {
   max-width: 375px;
   width: 100%;
@@ -12,7 +32,7 @@
   flex-direction: column;
   gap: 8px;
 }
-.input-title {
+.input_title {
   font-size: 14px;
   line-height: 18px;
   font-weight: 500;

@@ -1,0 +1,1 @@
+export { useAuthStore as authModel } from "./auth";

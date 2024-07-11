@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">poi_mahal</string>
+    <string name="title_activity_main">poi_mahal</string>
+    <string name="package_name">com.poi_mahal</string>
+    <string name="custom_url_scheme">com.poi_mahal</string>
+</resources>

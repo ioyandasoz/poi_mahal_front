@@ -1,24 +1,24 @@
 <template>
-  <div class="input-block">
+  <div class="select-block">
     <input
-      class="input"
-      :value="value" 
+      class="select"
+      :class="{ error: props.error }"
+      :value="value"
       :type="inputType"
       :disabled="props.disabled"
       :placeholder="props.placeholder"
-      :style="props.error ? 'border-color: var(--error-color); outline-color: var(--error-color);' :
-       'border-color: var(--grey-lighten-1); outline-color: var(--primary-color);' "
       @input="updateValue"
       @blur="fill = 'var(--grey-lighten-1)'"
       @focus="fill = 'var(--grey-color)'"
     >
-    <div @click="" class="img img_arrow">
-      <ArrowIcon/>
+    <div @click="listStatus = !listStatus" :class="`img img_arrow ${listStatus ? 'img_arrow_rotate' : 'img_arrow_default'}`">
+      <ArrowIcon />
     </div>
     <div v-if="value" class="img img_clear" @click="clearInput">
-      <ClearIcon :fill="fill"/>
+      <ClearIcon :fill="fill" />
     </div>
-    <ul class="list">
+    <ul v-if="listStatus" class="list">
+      <li @click="console.log(11222)" class="list_item">тест</li>
       <li class="list_item">тест</li>
     </ul>
   </div>
@@ -39,6 +39,7 @@ interface Props {
 }
 
 const fill = ref('var(--grey-color)')
+const listStatus = ref(false)
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
@@ -62,24 +63,33 @@ const clearInput = () => {
 
 
 <style lang="scss" scoped>
-.input-block {
+.select-block {
   position: relative;
 }
+
+ul li:not(:last-child) {
+  border-bottom: 1px solid var(--grey-lighten-1);
+}
+
 .list {
+  position: absolute;
+  width: 100%;
   border-radius: 12px;
   z-index: 5;
-  list-style: none;
   margin: 0;
   padding: 0;
-  background: var(--grey-lighten-1);
-  margin-top: 12px;
+  margin-top: 2px;
+  box-shadow: 0px 4px 8px 0px color(display-p3 0 0 0 / 0.16), 0px 0px 4px 0px color(display-p3 0 0 0 / 0.20);
+
   &_item {
     padding: 14px 16px;
     font-size: 15px;
     line-height: 20px;
     font-weight: 500;
+    cursor: pointer;
   }
 }
+
 .img {
   position: absolute;
   cursor: pointer;
@@ -88,12 +98,24 @@ const clearInput = () => {
     right: 42px;
     top: 14px;
   }
+
   &_arrow {
+    height: 20px;
+    width: 20px;
     right: 14px;
     top: 12px;
+    transition: all 0.2s linear;
+    transform-origin: center;
+    &_default {
+      transform: rotate(0);
+    }
+    &_rotate {
+      transform: rotate(180deg);
+    }
   }
 }
-.input {
+
+.select {
   width: 100%;
   font-size: 15px;
   font-weight: 400;
@@ -104,9 +126,20 @@ const clearInput = () => {
   border-radius: 12px;
   padding: 12px 42px 12px 12px;
   caret-color: var(--primary-color);
+  outline: none;
 
   &::placeholder {
     color: var(--grey-color);
+  }
+  &:focus {
+    border-color: var(--primary-color);
+  }
+  &.error {
+    border-color: var(--error-color);
+  }
+
+  &.error:focus {
+    border-color: var(--error-color);
   }
 }
 </style>

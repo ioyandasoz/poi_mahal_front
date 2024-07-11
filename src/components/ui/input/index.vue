@@ -2,13 +2,11 @@
   <div class="input-block">
     <input
       class="input"
-      v-mask="'## ### ## ##'"
+      :class="{ error: props.error }"
       :value="value" 
       :type="inputType"
       :disabled="props.disabled"
       :placeholder="props.placeholder"
-      :style="props.error ? 'border-color: var(--error-color); outline-color: var(--error-color);' :
-       'border-color: var(--grey-lighten-1); outline-color: var(--primary-color);' "
       @input="updateValue"
       @blur="fill = 'var(--grey-lighten-1)'"
       @focus="fill = 'var(--grey-color)'"
@@ -31,21 +29,20 @@ interface Props {
   placeholder?: string;
   type?: string;
   disabled?: boolean;
-  mask?: string
 }
 
 const fill = ref('var(--grey-color)')
 
+const emits = defineEmits(['update:value'])
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
 })
-const emits = defineEmits(['update:value'])
 const showPassword = ref(false) as Ref<boolean>
-
-const inputType = computed(() => (
-  showPassword.value ? 'text' : props.type
-))
-
+  
+  const inputType = computed(() => (
+    showPassword.value ? 'text' : props.type
+  ))
+  
 const updateValue = (event: Event) => {
   const target = event.target as HTMLInputElement
   emits('update:value', target.value)
@@ -81,13 +78,20 @@ const clearInput = () => {
   border-radius: 12px;
   padding: 12px 42px 12px 12px;
   caret-color: var(--primary-color);
+  outline: none;
 
-  &::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-  }
   &::placeholder {
     color: var(--grey-color);
+  }
+  &:focus {
+    border-color: var(--primary-color);
+  }
+  &.error {
+    border-color: var(--error-color);
+  }
+
+  &.error:focus {
+    border-color: var(--error-color);
   }
 }
 </style>

@@ -4,17 +4,25 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: () => import('@/views/HomePage.vue')
-  },
-  {
-    path: '/auth',
-    name: 'auth',
-    component: () => import('@/views/auth-page.vue')
+    component: () => import('@/layouts/default-layout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'main',
+        component: () => import('@/pages/main-page.vue')
+      },
+      {
+        path: 'test',
+        name: 'test',
+        component: () => import('@/pages/HomePage.vue')
+      },
+      {
+        path: '/auth',
+        name: 'auth',
+        component: () => import('@/pages/auth-page.vue')
+      },
+    ]
+
   },
 ]
 
